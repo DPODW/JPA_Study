@@ -1,31 +1,31 @@
 package com.jpa.study.c1.dao.impl;
 
-import com.jpa.study.c1.dao.ProductDAO;
+import com.jpa.study.c1.dao.ProductCrudDAO;
 import com.jpa.study.c1.entity.Product;
-import com.jpa.study.c1.repo.ProductRepository;
+import com.jpa.study.c1.repo.ProductCrudRepository;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Component
-public class ProductDAOImpl implements ProductDAO {
+public class ProductCrudDAOImpl implements ProductCrudDAO {
 
-    private final ProductRepository productRepository;
+    private final ProductCrudRepository productCrudRepository;
 
-    public ProductDAOImpl(ProductRepository productRepository) {
-        this.productRepository = productRepository;
+    public ProductCrudDAOImpl(ProductCrudRepository productCrudRepository) {
+        this.productCrudRepository = productCrudRepository;
     }
 
     @Override
     public Product insertProduct(Product product) {
-        Product saveProduct = productRepository.save(product);
+        Product saveProduct = productCrudRepository.save(product);
         return saveProduct;
     }
 
     @Override
     public Product selectProduct(Long number) {
-        Product selectProduct = productRepository.getReferenceById(number);
+        Product selectProduct = productCrudRepository.getReferenceById(number);
         return selectProduct;
       /*
        * 책에는 getById() 를 사용하고 있는데, 해당 메소드는 deprecated 되었다.
@@ -38,7 +38,7 @@ public class ProductDAOImpl implements ProductDAO {
 
     @Override
     public Product updateProduct(Long number, String name) throws Exception {
-        Optional<Product> selectProduct = productRepository.findById(number);
+        Optional<Product> selectProduct = productCrudRepository.findById(number);
 
         Product updateProduct;
         if(selectProduct.isPresent()){
@@ -49,21 +49,32 @@ public class ProductDAOImpl implements ProductDAO {
             product.setName(name);
             product.setUpdateAt(LocalDateTime.now());
 
-            updateProduct = productRepository.save(product);
+            updateProduct = productCrudRepository.save(product);
         }else{
             throw  new Exception();
         }
         return updateProduct;
     }
+    /*
+     * JPA 에는 Update 기능만을 수행하는 메소드가 존재하지 않는다.
+     * 위와 같이, 수정하고 싶은 데이터가 존재할시
+     * 1. 해당 데이터 존재 유무 체크 (null)
+     * 2. 존재할시, get 을 통해서 객체 가져옴
+     * 3. 수정 (set~~)
+     * 4. 다시 save
+     * => find 메소드를 통해 객체를 검색하고 영속성 컨텍스트에 추가한다.
+     * 영속성 컨텍스트에서 값을 새롭게 수정하고 다시 저장한다.
+     * 최종적으로 변경된 값이 저장된다. (더티 체크)
+     * */
 
 
     @Override
     public void deleteProduct(Long number) throws Exception {
-        Optional<Product> selectProduct = productRepository.findById(number);
+        Optional<Product> selectProduct = productCrudRepository.findById(number);
 
         if(selectProduct.isPresent()){
             Product product = selectProduct.get();
-            productRepository.delete(product);
+            productCrudRepository.delete(product);
         }else {
             throw new Exception();
         }

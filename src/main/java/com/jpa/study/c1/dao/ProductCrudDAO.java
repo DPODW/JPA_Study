@@ -2,9 +2,7 @@ package com.jpa.study.c1.dao;
 
 import com.jpa.study.c1.entity.Product;
 
-import java.util.Optional;
-
-public interface ProductDAO {
+public interface ProductCrudDAO {
 
     Product insertProduct(Product product);
 

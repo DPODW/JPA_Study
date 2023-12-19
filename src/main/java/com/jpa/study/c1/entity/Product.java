@@ -10,7 +10,6 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Entity //해당 클래스가 엔티티임을 (JPA 용도) 임을 선언하는 어노테이션
-
 @Table(name="product") /* 테이블과 매핑하는 어노테이션 (엔티티 클래스는 테이블과의 매핑이 기본이라,
                           해당 어노테이션은 '어느 테이블(이름) 에 매핑할 것인지' 명시하는 용도로 자주 쓰임.
                           해당 어노테이션을 생략할 시 => class 이름으로 테이블을 검색하고 매핑함 */
@@ -18,7 +17,6 @@ public class Product {
 
     @Id
     /* 테이블의 기본값 (유일한거) 지정 어노테이션. 모든 엔티티는 기본값을 필수로 요구한다.*/
-
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     /* 해당 필드의 값을 어떤 방식으로 자동 생성할 것인지 지정하는 어노테이션. @Id 와 같이 쓰임
     *  (strategy = GenerationType. ? ) 물음표 전 까지의 코드가 방식을 묻는 코드 (공통)
