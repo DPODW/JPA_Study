@@ -14,4 +14,13 @@ public interface QueryMethodService {
 
     Long getCountByName(String name);
 
+    boolean isProductExist(Long number);
+
+    List<Product>getTop2ProductByName(String name);
+
+    List<Product>getProductNotToName(String name);
+
+    List<Product>getLessThanPrice(Integer price);
+
+
 }

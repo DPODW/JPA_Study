@@ -41,7 +41,25 @@ public class QueryMethodServiceImpl implements QueryMethodService {
         return countByName;
     }
 
+    @Override
+    public boolean isProductExist(Long number) {
+        return queryMethodRepository.existsByNumber(number);
+    }
 
+    @Override
+    public List<Product> getTop2ProductByName(String name) {
+        return queryMethodRepository.findTop2ByName(name);
+    }
+
+    @Override
+    public List<Product> getProductNotToName(String name) {
+        return queryMethodRepository.findByNameNot(name);
+    }
+
+    @Override
+    public List<Product> getLessThanPrice(Integer price) {
+        return queryMethodRepository.findByPriceLessThan(price);
+    }
 
 
     private static ProductResponseDto getProductResponseDto(Product product) {

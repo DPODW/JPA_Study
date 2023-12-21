@@ -4,9 +4,11 @@ package com.jpa.study.c1.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
 
+@ToString
 @Getter
 @Setter
 @Entity //해당 클래스가 엔티티임을 (JPA 용도) 임을 선언하는 어노테이션
