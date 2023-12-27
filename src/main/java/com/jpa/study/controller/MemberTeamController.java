@@ -1,6 +1,7 @@
 package com.jpa.study.controller;
 
 import com.jpa.study.c1.service.impl.ManyToOneCRUD;
+import com.jpa.study.c1.service.impl.ToWayCRUD;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,9 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class MemberTeamController {
 
     private final ManyToOneCRUD manyToOneCRUD;
+    private final ToWayCRUD toWayCRUD;
 
-    public MemberTeamController(ManyToOneCRUD manyToOneCRUD) {
+    public MemberTeamController(ManyToOneCRUD manyToOneCRUD, ToWayCRUD toWayCRUD) {
         this.manyToOneCRUD = manyToOneCRUD;
+        this.toWayCRUD = toWayCRUD;
     }
 
     @PostMapping("/save")
@@ -42,4 +45,8 @@ public class MemberTeamController {
         manyToOneCRUD.findMemberToTeam();
     }
 
+    @PostMapping("/toWaySave")
+    public void toWaySave(){
+        toWayCRUD.toWaySave();
+    }
 }
