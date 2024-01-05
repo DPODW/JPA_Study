@@ -13,7 +13,6 @@ import java.util.List;
 
 @Setter
 @Getter
-@ToString
 @Entity
 public class Team {
 
